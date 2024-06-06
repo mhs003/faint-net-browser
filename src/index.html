@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Fake Net</title>
+  <link rel="stylesheet" href="tailwind.css" />
+  <link rel="stylesheet" href="index.css" />
+  <script defer src="jquery-3.7.1.min.js"></script>
+  <script defer src="browserscript.js"></script>
+</head>
+
+<body>
+  <div class="flex justify-center items-center bg-slate-50 shadow-md relative group">
+    <div class="grid grid-cols-[1fr_auto] justify-center items-center gap-2 p-4 w-full md:max-w-4xl lg:max-w-xl">
+      <input type="url" name="" id="urlbox" class="p-2 border-2 border-slate-200 hover:border-slate-300 focus:border-teal-500 rounded-md outline-none">
+      <button id="openurl" class="py-2 text-white px-4 bg-teal-400 md:bg-teal-500 rounded-md">Go</button>
+    </div>
+    <div id="loader" class="absolute left-0 bottom-0 h-[2px] bg-green-400 transition-[width] duration-1000 w-0"></div>
+  </div>
+  <div class="h-[calc(100dvh-76px)]">
+    <webview id="webview" src="https://www.github.com/" class="w-full h-full"></webview>
+  </div>
+</body>
+
+</html>
