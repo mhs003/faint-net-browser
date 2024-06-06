@@ -1,16 +1,36 @@
 const { ipcRenderer } = require("electron");
 const $ = require("./jquery-3.7.1.min.js");
+const package = require("../package.json");
+
+// const ENV = {
+//     appname: package.productName,
+// };
 
 $(window).on("load", function () {
     const cjWebview = document.querySelector("#webview");
 
-    setTitle("Fake-Net");
+    setTitle(package.productName);
+
+    $("#urlbox").focus(function () {
+        $(this).select();
+    });
+
+    $("#urlbox").keydown(function (event) {
+        if (event.keyCode === 27) {
+            $("#urlbox").blur();
+            cjWebview.focus();
+        }
+    });
 
     $("#urlbox").keypress(function (event) {
         var keycode = event.keyCode ? event.keyCode : event.which;
         if (keycode == "13") {
             const preurl = $("#urlbox").val();
             let url = "";
+            if (preurl === "devtool") {
+                cjWebview.openDevTools();
+                return;
+            }
             try {
                 const procurl = new URL(preurl);
                 url = procurl.href;
@@ -20,6 +40,7 @@ $(window).on("load", function () {
             console.log(url);
             cjWebview.loadURL(url);
             $("#urlbox").blur();
+            cjWebview.focus();
         }
     });
 
@@ -66,19 +87,20 @@ $(window).on("load", function () {
         if (cjWebview.getTitle() !== "preload.html") {
             setTitle(cjWebview.getTitle());
         } else {
-            setTitle("Fake-Net");
+            setTitle(package.productName);
         }
         if (!cjWebview.getURL().startsWith("file://")) {
             setUrl(cjWebview.getURL());
         } else {
             setUrl("");
         }
+        cjWebview.focus();
     });
     WebViewOn("load-commit", () => {
         if (cjWebview.getTitle() !== "preload.html") {
             setTitle(cjWebview.getTitle());
         } else {
-            setTitle("Fake-Net");
+            setTitle(package.productName);
         }
         if (!cjWebview.getURL().startsWith("file://")) {
             setUrl(cjWebview.getURL());
@@ -107,7 +129,10 @@ $(window).on("load", function () {
 });
 
 function setTitle(title) {
-    window.document.title = title;
+    window.document.title =
+        title === package.productName
+            ? package.productName
+            : title + " - " + package.productName;
     $("#title").text(title);
 }
 

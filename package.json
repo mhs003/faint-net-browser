@@ -1,8 +1,8 @@
 {
-    "name": "fake-net",
-    "productName": "Fake-Net",
+    "name": "faint-net",
+    "productName": "Faint Net Browser",
     "version": "1.0.0",
-    "description": "Fake-Net",
+    "description": "Faint Net Browser",
     "main": "src/index.js",
     "scripts": {
         "dev-tw": "tailwindcss -i ./twinput.css -o ./src/tailwind.css --watch",
