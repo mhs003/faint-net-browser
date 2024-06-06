@@ -5,3 +5,8 @@
 * {
     user-select: none;
 }
+
+button,
+input {
+    outline: none;
+}

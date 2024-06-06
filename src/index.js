@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("node:path");
 
 const onDev = true;
@@ -30,7 +30,10 @@ const createWindow = () => {
         webPreferences: {
             webviewTag: true,
             nodeIntegration: true,
+            contextIsolation: false,
             preload: path.join(__dirname, "preload.js"),
+            enableRemoteModule: true,
+            frame: false,
         },
     });
 
@@ -41,7 +44,20 @@ const createWindow = () => {
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools();
+    ipcMain.on("minimize", () => {
+        mainWindow.minimize();
+    });
+    ipcMain.on("maximize", () => {
+        if (mainWindow.isMaximized()) {
+            mainWindow.unmaximize();
+        } else {
+            mainWindow.maximize();
+        }
+    });
 };
+ipcMain.on("close", () => {
+    app.quit();
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
