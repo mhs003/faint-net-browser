@@ -11,6 +11,16 @@
 </head>
 
 <body>
+  <div class="grid grid-cols-[1fr_auto] justify-center items-center h-[32px] px-2 bg-slate-900 text-white" style="-webkit-app-region: drag">
+    <div>
+      Title Bar
+    </div>
+    <div>
+      <button id="minimize" class="h-full hover:bg-slate-100 px-2">-</button>
+      <button id="maximize" class="h-full hover:bg-slate-100 px-2">+</button>
+      <button id="close" class="h-full hover:bg-slate-100 px-2">x</button>
+    </div>
+  </div>
   <div class="flex justify-center items-center bg-slate-50 shadow-md relative group">
     <div class="grid grid-cols-[1fr_auto] justify-center items-center gap-2 p-4 w-full md:max-w-4xl lg:max-w-xl">
       <input type="url" name="" id="urlbox" class="p-2 border-2 border-slate-200 hover:border-slate-300 focus:border-teal-500 rounded-md outline-none">
@@ -18,7 +28,7 @@
     </div>
     <div id="loader" class="absolute left-0 bottom-0 h-[2px] bg-green-400 transition-[width] duration-1000 w-0"></div>
   </div>
-  <div class="h-[calc(100dvh-76px)]">
+  <div class="h-[calc(100dvh-76px-32px)]">
     <webview id="webview" src="https://www.github.com/" class="w-full h-full"></webview>
   </div>
 </body>
