@@ -1,21 +1,7 @@
 const { ipcRenderer } = require("electron");
 const $ = require("./jquery-3.7.1.min.js");
 
-/* $("#urlbox");
-
- */
-
-// $(document).ready(function () {
-//     const webview = $("#webview");
-
-//     const loadstart = () => {
-//         setTimeout(() => {
-//             $("#loader").css("width");
-//         }, 100);
-//     };
-// });
 $(window).on("load", function () {
-    // https://google.com
     const cjWebview = document.querySelector("#webview");
 
     setTitle("Fake-Net");
