@@ -10,7 +10,7 @@
 
 <body class="overflow-hidden">
   <div class="overflow-hidden rounded-lg bg-slate-900">
-    <div class="grid grid-cols-[auto_1fr_auto] justify-center items-center h-[32px] px-2 bg-slate-900 text-white" style="-webkit-app-region: drag">
+    <div class="grid grid-cols-[auto_1fr_auto] justify-center items-center h-[32px] px-2 bg-slate-900 text-white [-webkit-app-region:_drag]">
       <div class="w-[20px]">
         <svg id="title-icon-loader" class="w-3 h-3 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="#ffffff" d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z" />
@@ -23,25 +23,25 @@
         Title
       </div>
       <div class="flex justify-center items-center">
-        <button id="minimize" style="-webkit-app-region: no-drag;" class="h-full hover:bg-slate-600 focus-visible:bg-slate-600 w-[40px] inline-flex justify-center items-center cursor-pointer">-</button>
-        <button id="maximize" style="-webkit-app-region: no-drag;" class="h-full hover:bg-slate-600 focus-visible:bg-slate-600 w-[40px] inline-flex justify-center items-center cursor-pointer">+</button>
-        <button id="close" style="-webkit-app-region: no-drag;" class="h-full hover:bg-red-800 focus-visible:bg-red-800 w-[40px] inline-flex justify-center items-center cursor-pointer">x</button>
+        <button id="minimize" class="[-webkit-app-region:_no-drag;] h-full hover:bg-slate-600 focus-visible:bg-slate-600 w-[40px] inline-flex justify-center items-center cursor-pointer">-</button>
+        <button id="maximize" class="[-webkit-app-region:_no-drag;] h-full hover:bg-slate-600 focus-visible:bg-slate-600 w-[40px] inline-flex justify-center items-center cursor-pointer">+</button>
+        <button id="close" class="[-webkit-app-region:_no-drag;] h-full hover:bg-red-800 focus-visible:bg-red-800 w-[40px] inline-flex justify-center items-center cursor-pointer">x</button>
       </div>
     </div>
-    <div class="flex justify-center items-center bg-slate-800 shadow-md relative group">
+    <div class="flex justify-center items-center bg-slate-800 shadow-md relative group [-webkit-app-region:_drag]">
       <div class="grid grid-cols-[auto_1fr] justify-center items-center gap-2 p-4 w-full xl:max-w-4xl">
         <div class="flex justify-center items-center gap-1">
-          <button id="back" class="rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center" disabled>
+          <button id="back" class="enabled:[-webkit-app-region:_no-drag;] rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center" disabled>
             <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
             </svg>
           </button>
-          <button id="forward" class="rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center" disabled>
+          <button id="forward" class="enabled:[-webkit-app-region:_no-drag;] rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center" disabled>
             <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <path fill="#ffffff" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" />
             </svg>
           </button>
-          <button id="refresh" data-action="refresh" class="rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center">
+          <button id="refresh" data-action="refresh" class="enabled:[-webkit-app-region:_no-drag;] rounded-full w-[30px] h-[30px] bg-transparent hover:bg-slate-700 focus-visible:bg-slate-600 disabled:opacity-30 disabled:hover:bg-transparent disabled:focus-visible:bg-transparent text-white inline-flex justify-center items-center">
             <svg id="icon-refresh" class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
               <path fill="#ffffff" d="M463.5 224H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5z" />
             </svg>
@@ -50,7 +50,7 @@
             </svg>
           </button>
         </div>
-        <input autocomplete="off" spellcheck="false" id="urlbox" class="p-2 px-4 border-2 bg-slate-700 border-slate-600 hover:border-slate-500 text-white focus:border-teal-500 rounded-full text-sm outline-none" placeholder="Search on Fainted or browse website">
+        <input autocomplete="off" spellcheck="false" id="urlbox" class="p-2 px-4 border-2 bg-slate-700 border-slate-600 hover:border-slate-500 text-white focus:border-teal-500 rounded-full text-sm outline-none [-webkit-app-region:_no-drag;]" placeholder="Search on Fainted or browse website">
         <!-- <button id="openurl" class="py-2 text-white px-4 bg-teal-400 md:bg-teal-500 rounded-md">Go</button> -->
       </div>
       <div id="loader" class="absolute left-0 bottom-0 h-[2px] bg-green-400 transition-[width] duration-1000 w-0"></div>
