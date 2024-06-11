@@ -1,12 +1,15 @@
 const { ipcRenderer } = require("electron");
 const $ = require("./jquery-3.7.1.min.js");
 const package = require("../package.json");
+const config = require("./config.js");
+const store = require("./Store.js");
+const FaintURL = require("./FaintURL.js");
 
-// const ENV = {
-//     appname: package.productName,
-// };
-
-$(window).on("load", function () {
+$(window).on("load", async function () {
+    // if (store.hasItem("tlds")) {
+    //     store.removeItem("tlds");
+    // }
+    storeTLDs();
     const cjWebview = document.querySelector("#webview");
 
     setTitle(package.productName);
@@ -27,12 +30,15 @@ $(window).on("load", function () {
         if (keycode == "13") {
             const preurl = $("#urlbox").val();
             let url = "";
-            if (preurl === "devtool") {
+            if (preurl === "config:reload") {
+                storeTLDs();
+                return;
+            } /* else if (preurl === "devtool") {
                 cjWebview.openDevTools();
                 return;
-            }
+            } */
             try {
-                const procurl = new URL(preurl);
+                const procurl = new FaintURL(preurl);
                 url = procurl.href;
             } catch (err) {
                 url = "http://" + preurl;
@@ -90,20 +96,37 @@ $(window).on("load", function () {
             setTitle(package.productName);
         }
         if (!cjWebview.getURL().startsWith("file://")) {
-            setUrl(cjWebview.getURL());
+            const url = new URL(cjWebview.getURL());
+            if (url.origin !== config.dnsBase) {
+                cjWebview.stop();
+                cjWebview.src = "./error.html";
+                return;
+            }
+            console.log(url);
+            const currentFaintUrl = buildFaintUrl(url.searchParams);
+            setUrl(currentFaintUrl);
         } else {
             setUrl("");
         }
         cjWebview.focus();
     });
     WebViewOn("load-commit", () => {
+        console.log(cjWebview.getURL());
         if (cjWebview.getTitle() !== "preload.html") {
             setTitle(cjWebview.getTitle());
         } else {
             setTitle(package.productName);
         }
         if (!cjWebview.getURL().startsWith("file://")) {
-            setUrl(cjWebview.getURL());
+            const url = new URL(cjWebview.getURL());
+            if (url.origin !== config.dnsBase) {
+                cjWebview.stop();
+                cjWebview.src = "./error.html";
+                return;
+            }
+            console.log(url);
+            const currentFaintUrl = buildFaintUrl(url.searchParams);
+            setUrl(currentFaintUrl);
         } else {
             setUrl("");
         }
@@ -138,4 +161,21 @@ function setTitle(title) {
 
 function setUrl(url) {
     $("#urlbox").val(url);
+}
+
+function storeTLDs() {
+    $.ajax({
+        type: "get",
+        url: config.tldsPath,
+        success: function (response) {
+            const data = [...response.public, ...response.private];
+            store.setItem("tlds", data);
+        },
+    });
+}
+
+function buildFaintUrl(params) {
+    return `${config.protocol}://${params.get("domain_name")}.${params.get(
+        "tld"
+    )}${params.get("path")}`;
 }

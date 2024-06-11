@@ -31,7 +31,7 @@ const createWindow = () => {
             preload: path.join(__dirname, "preload.js"),
             enableRemoteModule: true,
             frame: false,
-            devTools: false,
+            // devTools: false,
         },
     });
 
@@ -47,7 +47,7 @@ const createWindow = () => {
     });
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     ipcMain.on("minimize", () => {
         mainWindow.minimize();
     });
