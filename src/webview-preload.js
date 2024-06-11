@@ -7,3 +7,10 @@ document.addEventListener("keydown", function (e) {
         window.location.reload();
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.contentType !== "text/html") {
+        document.querySelector("body").style.backgroundColor =
+            "rgb(15, 23, 42)";
+    }
+});

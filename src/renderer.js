@@ -33,17 +33,13 @@ $(window).on("load", async function () {
             if (preurl === "config:reload") {
                 storeTLDs();
                 return;
-            } /* else if (preurl === "devtool") {
+            } else if (preurl === "devtool") {
                 cjWebview.openDevTools();
                 return;
-            } */
-            try {
-                const procurl = new FaintURL(preurl);
-                url = procurl.href;
-            } catch (err) {
-                url = "http://" + preurl;
             }
-            console.log(url);
+
+            url = buildFaintDnsUrl(preurl);
+            // console.log(url);
             cjWebview.loadURL(url);
             $("#urlbox").blur();
             cjWebview.focus();
@@ -90,46 +86,12 @@ $(window).on("load", async function () {
         $("#refresh").data("action", "refresh");
         $("#icon-refresh").css("display", "block");
         $("#icon-stop-browsing").css("display", "none");
-        if (cjWebview.getTitle() !== "preload.html") {
-            setTitle(cjWebview.getTitle());
-        } else {
-            setTitle(package.productName);
-        }
-        if (!cjWebview.getURL().startsWith("file://")) {
-            const url = new URL(cjWebview.getURL());
-            if (url.origin !== config.dnsBase) {
-                cjWebview.stop();
-                cjWebview.src = "./error.html";
-                return;
-            }
-            console.log(url);
-            const currentFaintUrl = buildFaintUrl(url.searchParams);
-            setUrl(currentFaintUrl);
-        } else {
-            setUrl("");
-        }
+        // ---
         cjWebview.focus();
+        console.log(cjWebview.getURL());
     });
     WebViewOn("load-commit", () => {
-        console.log(cjWebview.getURL());
-        if (cjWebview.getTitle() !== "preload.html") {
-            setTitle(cjWebview.getTitle());
-        } else {
-            setTitle(package.productName);
-        }
-        if (!cjWebview.getURL().startsWith("file://")) {
-            const url = new URL(cjWebview.getURL());
-            if (url.origin !== config.dnsBase) {
-                cjWebview.stop();
-                cjWebview.src = "./error.html";
-                return;
-            }
-            console.log(url);
-            const currentFaintUrl = buildFaintUrl(url.searchParams);
-            setUrl(currentFaintUrl);
-        } else {
-            setUrl("");
-        }
+        // ---
         if (cjWebview.canGoBack()) {
             $("#back").prop("disabled", false);
         } else {
@@ -175,7 +137,32 @@ function storeTLDs() {
 }
 
 function buildFaintUrl(params) {
-    return `${config.protocol}://${params.get("domain_name")}.${params.get(
+    return `${config.protocol}${params.get("domain_name")}.${params.get(
         "tld"
     )}${params.get("path")}`;
+}
+
+function buildFaintDnsUrl(url) {
+    const parsedUrl = new FaintURL(url);
+    const domain = parsedUrl.hostname.split(".")[0];
+    const tld = parsedUrl.hostname.split(".")[1];
+    const path = parsedUrl.pathname === "" ? "/" : parsedUrl.pathname;
+    console.log({ domain, tld, path });
+    let dns;
+    if (!tld || !validateDomain(domain)) {
+        dns = `${
+            config.servePath
+        }?domain_name=find&tld=faint&path=/search?text=${
+            domain + path
+        }&router_group=routes`;
+    } else {
+        dns = `${config.servePath}?domain_name=${domain}&tld=${tld}&path=${path}&router_group=routes`;
+    }
+    return dns;
+}
+
+function validateDomain(domain) {
+    return /^(?!.*\\..*)(?!.*[^a-zA-Z0-9_-])(?!.*[_-]$)(?!^[_-])(?!^\\d+$)(?=.*[a-zA-Z])[a-zA-Z0-9_-]+$/g.test(
+        domain
+    );
 }
